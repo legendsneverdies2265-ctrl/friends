@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Special Hub for You</title>
+  <style>
+    body {
+      font-family: "Segoe UI", sans-serif;
+      margin: 0;
+      background: linear-gradient(135deg, #fce1ec, #fde2f3);
+      color: #333;
+      text-align: center;
+      padding: 20px;
+      overflow-x: hidden;
+      position: relative;
+    }
+    h1, h2 {
+      color: #b83280;
+    }
+    section {
+      margin: 30px auto;
+      padding: 20px;
+      max-width: 650px;
+      background: #fff;
+      border-radius: 15px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+    }
+    button {
+      background: #b83280;
+      color: #fff;
+      border: none;
+      padding: 10px 18px;
+      margin: 8px;
+      border-radius: 10px;
+      font-size: 15px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background: #922d6e;
+    }
+    img {
+      max-width: 100%;
+      border-radius: 10px;
+      margin-top: 10px;
+    }
+    .output {
+      margin-top: 15px;
+      font-style: italic;
+      color: #444;
+      min-height: 30px;
+    }
+    /* Hidden Surprise */
+    #surpriseMessage {
+      display: none;
+      font-size: 1.3em;
+      color: #922d6e;
+      margin-top: 20px;
+      line-height: 1.6em;
+      animation: fadeIn 2s ease forwards;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    /* Floating Hearts */
+    .heart {
+      position: fixed;
+      font-size: 24px;
+      color: #ff4d6d;
+      animation: floatUp 4s linear forwards;
+      pointer-events: none;
+      z-index: 999;
+    }
+    @keyframes floatUp {
+      from { transform: translateY(0) scale(1); opacity: 1; }
+      to { transform: translateY(-200px) scale(1.5); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🌟 Friendship Fun Hub 🌟</h1>
+  <p>Because even far away, I want to make your day lighter, brighter & warmer 💖</p>
+
+  <!-- Game -->
+  <section>
+    <h2>🎲 Mini Game: Rock-Paper-Scissors</h2>
+    <button onclick="playGame('rock')">🪨 Rock</button>
+    <button onclick="playGame('paper')">📄 Paper</button>
+    <button onclick("playGame('scissors')")>✂️ Scissors</button>
+    <div class="output" id="gameResult"></div>
+  </section>
+
+  <!-- Jokes -->
+  <section>
+    <h2>😂 Random Jokes</h2>
+    <button onclick="tellJoke()">Tell me a joke</button>
+    <div class="output" id="jokeOutput"></div>
+  </section>
+
+  <!-- Memes -->
+  <section>
+    <h2>🤣 Funny Memes</h2>
+    <button onclick="showMeme()">Show me a meme</button>
+    <div id="memeArea"></div>
+  </section>
+
+  <!-- Life Questions -->
+  <section>
+    <h2>❓ Conversation Sparks</h2>
+    <button onclick="askQuestion()">Ask a Question</button>
+    <div class="output" id="questionOutput"></div>
+  </section>
+
+  <!-- Mood Booster -->
+  <section>
+    <h2>🌈 Mood Booster</h2>
+    <button onclick="boostMood()">Boost My Mood</button>
+    <div class="output" id="moodOutput"></div>
+  </section>
+
+  <!-- Surprise Section -->
+  <section>
+    <h2>💝 Special Surprise</h2>
+    <p>Click only when you’re ready for something from the heart...</p>
+    <button onclick="showSurprise()">Reveal Surprise</button>
+    <div id="surpriseMessage"></div>
+    <audio id="bgMusic" loop>
+      <source src="tere-bina-na-guzara.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
+  </section>
+
+  <script>
+    // Rock Paper Scissors
+    function playGame(playerChoice) {
+      const choices = ["rock", "paper", "scissors"];
+      const computerChoice = choices[Math.floor(Math.random() * choices.length)];
+      let result = "";
+      if (playerChoice === computerChoice) {
+        result = `Both chose ${playerChoice}. It's a tie!`;
+      } else if (
+        (playerChoice === "rock" && computerChoice === "scissors") ||
+        (playerChoice === "paper" && computerChoice === "rock") ||
+        (playerChoice === "scissors" && computerChoice === "paper")
+      ) {
+        result = `You chose ${playerChoice}, computer chose ${computerChoice}. You win! 🎉`;
+      } else {
+        result = `You chose ${playerChoice}, computer chose ${computerChoice}. Computer wins 😅`;
+      }
+      document.getElementById("gameResult").innerText = result;
+    }
+
+    // Jokes
+    const jokes = [
+      "Why don’t skeletons fight each other? They don’t have the guts 😂",
+      "Life tip: eat more cake. Problems can’t find you if you’re hiding in the bakery 🧁",
+      "Some days are meh, but remember… even WiFi signals travel long distance & still connect 😏",
+      "Why don’t eggs tell jokes? They’d crack each other up!"
+    ];
+    function tellJoke() {
+      const joke = jokes[Math.floor(Math.random() * jokes.length)];
+      document.getElementById("jokeOutput").innerText = joke;
+    }
+
+    // Memes
+    const memes = [
+      "https://i.imgflip.com/30zz5g.jpg",
+      "https://i.imgflip.com/1bij.jpg",
+      "https://i.imgflip.com/26am.jpg"
+    ];
+    function showMeme() {
+      const meme = memes[Math.floor(Math.random() * memes.length)];
+      document.getElementById("memeArea").innerHTML = `<img src="${meme}" alt="Funny meme">`;
+    }
+
+    // Life Questions
+    const questions = [
+      "What’s the best memory we share together?",
+      "If you could teleport right now, where would we go together?",
+      "What song instantly reminds you of me?",
+      "If I wrote you a letter, would you keep it forever?",
+      "Which little thing do you secretly like about me?"
+    ];
+    function askQuestion() {
+      const q = questions[Math.floor(Math.random() * questions.length)];
+      document.getElementById("questionOutput").innerText = q;
+    }
+
+    // Mood Booster
+    const boosters = [
+      "Even miles apart, you still matter to me more than anyone else 🌍",
+      "Smile now — because somewhere, I’m smiling thinking of you 😊",
+      "You’re not just special… you’re irreplaceable in my world 💖",
+      "One day, distance won’t matter… but you’ll always matter 💕"
+    ];
+    function boostMood() {
+      const line = boosters[Math.floor(Math.random() * boosters.length)];
+      document.getElementById("moodOutput").innerText = line;
+    }
+
+    // Surprise
+    function showSurprise() {
+      const msg = `
+        You know… all this fun is just my excuse. <br>
+        The truth is, every time I laugh with you, every moment I share with you — 
+        it means more than I can ever say. <br><br>
+        You’ve become someone I can’t imagine my days without. 
+        Maybe you already know… or maybe you’ll realize now. <br><br>
+        Distance hides me from you, but it can’t hide how deeply I feel for you. 💖
+      `;
+      const sm = document.getElementById("surpriseMessage");
+      sm.innerHTML = msg;
+      sm.style.display = "block";
+
+      const music = document.getElementById("bgMusic");
+      // attempt to play
+      music.play().catch(err => {
+        console.warn("Audio play was prevented:", err);
+      });
+
+      startHearts();
+    }
+
+    // Floating Hearts Animation
+    function startHearts() {
+      const interval = setInterval(() => {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.innerText = "💖";
+        heart.style.left = (Math.random() * window.innerWidth) + "px";
+        heart.style.top = window.innerHeight + "px";
+        heart.style.fontSize = (20 + Math.random() * 20) + "px";
+        document.body.appendChild(heart);
+
+        setTimeout(() => {
+          heart.remove();
+        }, 4000);
+      }, 500);
+    }
+  </script>
+
+</body>
+</html>
